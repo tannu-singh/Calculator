@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	 <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<title>Calculator</title>
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+	
+	<style type="text/css">
+		/* Basic Layout */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			
+			/* Better text styling */
+			font-family: Gotham Rounded, sans-serif;
+  			font-weight: normal;
+		}
+
+        /* A background for the website*/
+		html {
+			height: 100%;
+			/*background: linear-gradient(to right, #00AAFF, #00FF6C);*/
+			background: radial-gradient(circle, #fff 20%, #ccc); 
+			background-size: cover;
+			background: white;
+
+		}
+
+		/* 3D Calcuator */
+		#calculator {
+			width: 325px;
+			height: auto;
+			
+			margin: 100px auto;
+			padding: 20px 20px 9px;
+			
+			background: #9dd2ea;
+			background: linear-gradient(#9dd2ea, #8bceec);
+			border-radius: 3px;
+			box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+		}
+
+      	/* In class top we have three divs which are: clear button, delete button, and the calculation screen*/
+		.top span.clear {
+			float: left;
+		}
+		.top span.delete {
+			float: right;
+		}
+		/* Inset shadow on the screen to create indent */
+		.top .screen {
+			height: 40px;
+			width: 285px;
+			
+			float: right;
+			
+			padding: 0 10px;
+			
+			background: rgba(0, 0, 0, 0.2);
+			border-radius: 3px;
+			box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);		
+			font-size: 15px;
+			line-height: 40px;
+			color: white;
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+			text-align: right;
+			letter-spacing: 1px;
+		}
+		
+		.keys, .top {overflow: hidden;}
+
+		/* 3D keys */
+		.keys span, .top span.clear , span.delete {
+			float: left;
+			position: relative;
+			top: 0;
+			
+			cursor: pointer;
+			
+			width: 66px;
+			height: 36px;
+			
+			background: white;
+			border-radius: 3px;
+			box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+			
+			margin: 0 7px 11px 0;
+			
+			color: #888;
+			line-height: 36px;
+			text-align: center;
+			
+			
+			user-select: none;
+			
+			
+			transition: all 0.2s ease;
+		}
+
+		
+		/* Keys Styling*/
+		.keys span.operator {
+			background: #FFF0F5;
+			margin-right: 0;
+		}
+
+		.keys span.eval {
+			background:#7FFFD4;
+			box-shadow: 0px 4px #66CDAA;
+			color: #888e5f;
+		}
+
+		.top span.clear {
+			background: #F08080;
+			box-shadow: 0px 4px #CD5C5C;
+			color: white;
+		}
+
+		.top span.delete {
+			background: #ff9fa8;
+			box-shadow: 0px 4px #ff7c87;
+			color: white;
+		}
+		/* Hover on keys*/
+		.keys span:hover {
+			background: #C0C0C0;
+			box-shadow: 0px 4px #808080;
+			color: white;
+		}
+
+		.keys span.eval:hover {
+			background: #66CDAA 	;
+			box-shadow: 0px 4px  	#20B2AA;
+			color: #ffffff;
+		}
+
+		.top span.clear:hover {
+			background:  	#FA8072;
+			box-shadow: 0px 4px #B22222;
+			color: white;
+		}
+		.top span.delete:hover {
+			background:#f68991;
+			box-shadow: 0px 4px #d3545d;
+			color: white;
+		}
+
+		/* Button press effect on keys */
+		.keys span:active {
+			box-shadow: 0px 0px #6b54d3;
+			top: 4px;
+		}
+
+		.keys span.eval:active {
+			box-shadow: 0px 0px #717a33;
+			top: 4px;
+		}
+
+		.top span.clear:active {
+			top: 4px;
+			box-shadow: 0px 0px #d3545d;
+		}
+		.top span.delete:active {
+			top: 4px;
+			box-shadow: 0px 0px #d3545d;
+		}
+
+	</style> 
+</head>
+
+<body>
+	<div id="calculator">
+		<!-- Screen and clear key -->
+		<div class="top">
+			<span class="clear">C</span>
+			<span class="delete">DEL</span>
+			<div class="screen"></div>
+		</div>
+			
+		<div class="keys">
+			<!-- operators and other keys -->
+			<span>7</span>
+			<span>8</span>
+			<span>9</span>
+			<span class="operator">+</span>
+			<span>4</span>
+			<span>5</span>
+			<span>6</span>
+			<span class="operator">-</span>
+			<span>1</span>
+			<span>2</span>
+			<span>3</span>
+			<span class="operator">÷</span>
+			<span>0</span>
+			<span>.</span>
+			<span class="eval">=</span>
+			<span class="operator">x</span>
+		</div>
+        <div class="bottom" id="content">
+		</div>
+	</div>
+
+
+
+	<!-- PrefixFree -->
+	<script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js"></script>
+	<!--socket.io-->
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		window.onload = function() {
+            // Defined the localhost connection in socket
+		    var socket = io.connect('http://localhost:9000');
+		    // Calculation is sent to content
+		    var content = document.getElementById("content");
+
+		    // Display logs
+		    socket.on('message', function (data) {
+		    	var html = 'Calculation Logs:<br />';
+
+		        if(data.operations) {
+		            
+		            for(var i=0; i<data.operations.length; i++) {
+		                html += data.operations[i] + '<br />';
+		            }
+		            content.innerHTML = html;
+		        } else {
+		            console.log("There is a problem:", data);
+		        }
+		    });
+		    
+			var keys = document.querySelectorAll('#calculator span');
+			var operators = ['+', '-', 'x', '÷'];
+			var decimalAdded = false;
+
+			// Perform operations using onclick
+			for(var i = 0; i < keys.length; i++) {
+				keys[i].onclick = function(e) {
+					// Input and button values
+					var input = document.querySelector('.screen');
+					var inputVal = input.innerHTML;
+					var btnVal = this.innerHTML;
+					
+					// Erase the entry
+					if(btnVal == 'C') {
+						input.innerHTML = '';
+						btnVal ='';
+						decimalAdded = false;
+						console.log("Clear", input.innerHTML, btnVal );
+					}
+					// delete each number or operator
+					if(btnVal == 'DEL') {
+						input.innerHTML = input.innerHTML.toString().slice(0, -1);
+						//decimalAdded = false;
+					}
+					//Equal to button is pressed then calculate the result
+					else if(btnVal == '=') {
+						var equation = inputVal;
+						var lastChar = equation[equation.length - 1];
+						
+						// Regex for multiply and divide
+						equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+						
+						// If the equation ends with operator then remove the operator and evaluate the results.
+						if(operators.indexOf(lastChar) > -1 || lastChar == '.')
+							equation = equation.replace(/.$/, '');
+						
+						if(equation) {
+							input.innerHTML = eval(equation);
+							socket.emit('send', { operation: equation+" = "+input.innerHTML });
+						}
+							
+						decimalAdded = false;
+					}
+					
+				
+					else if(operators.indexOf(btnVal) > -1) {
+						//last character from the equation
+						var lastChar = inputVal[inputVal.length - 1];
+						
+						// helps to avoid consecutive entries of operators
+						if(inputVal != '' && operators.indexOf(lastChar) == -1) 
+							input.innerHTML += btnVal;
+						
+						// This condition permits the minus sign at the start of the equation
+						else if(inputVal == '' && btnVal == '-') 
+							input.innerHTML += btnVal;
+						
+						if(operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
+							
+							input.innerHTML = inputVal.replace(/.$/, btnVal);
+						}
+						
+						decimalAdded =false;
+					}
+					
+					//This helps to maintain only one point in a real number 
+					else if(btnVal == '.') {
+						if(!decimalAdded) {
+							input.innerHTML += btnVal;
+							decimalAdded = true;
+						}
+					}
+					
+				
+					else {
+						input.innerHTML += btnVal;
+					}
+					
+				
+					e.preventDefault();
+				} 
+			}
+		}
+		
+	</script>
+</body>
+
+</html>
+
+
