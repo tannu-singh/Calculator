@@ -3,5 +3,21 @@
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^2.3.0"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "calculator",
+  "description": "Create a web app (using any programming languages) which logs calculations as they happen and shares those calculations with everyone connected to the website.",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tannu-singh/Calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tannu-singh/Calculator/issues"
+  },
+  "homepage": "https://github.com/tannu-singh/Calculator#readme"
 }
